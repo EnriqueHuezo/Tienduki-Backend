@@ -114,7 +114,7 @@ controller.put = async (req, res) => {
         const { identifier } = req.params;
         const data = {...req.body};
 
-        const orderDetail = await OrderDetail.findByIdAndUpdate(identifier, data, {new: true});
+        const orderDetail = await OrderDetail.updateMany({id_order: identifier}, {id_state: data.state});
 
         if (!orderDetail) {
             return res.status(409).json({ error: "Ocurrio un error al modificar el tipo de imagen"});

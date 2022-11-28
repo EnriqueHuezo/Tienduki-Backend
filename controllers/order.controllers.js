@@ -89,6 +89,47 @@ controller.findById = async (req, res) => {
     }
 }
 
+controller.findByIdStore = async (req, res) => {
+
+    try {
+        
+        const { identifier } = req.params;
+
+        const orden = await Order.find({ id_store: identifier }).
+        populate({
+            path:"detail",
+            populate: [
+                {
+                    path: "id_product"
+                },
+                {
+                    path: "id_state"
+                }
+            ],
+        }).
+        populate({
+            path:"id_client",
+            select: "-password -hashedPassword -salt -datebirth -gender -store_rating -id_rol",
+            populate: {
+                path: "image_user",
+                populate: {
+                    path: "id_image_type"
+                }
+            }
+        });
+
+        if (!orden) {
+            return res.status(409).json({ error: "Ocurrio un error al traer una orden"})
+        }
+
+        return res.status(201).json(orden);
+
+    } catch (error) {
+        debug({error});
+        return res.status(500).json({error: "Error interno de servidor"});
+    }
+}
+
 controller.delete = async (req, res) => {
 
     try {
