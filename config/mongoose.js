@@ -1,14 +1,8 @@
 const Mongoose = require("mongoose");
 const debug = require("debug")("app:mongoose");
 
-/*
-const dbhost = process.env.DBHOST || "localhost";
-const dbport = process.env.DBPORT || "27017";
-const dbname = process.env.DBNAME || "prueba"
-*/
-
 const dburi = process.env.CHAIN;
-// 
+
 const connect = async () => {
   try {
     await Mongoose.connect(dburi);

@@ -53,7 +53,6 @@ controller.delete = async(req, res) => {
         )
 
         const activity = await Activity.findOneAndDelete( {_id: ObjectId(identifier)} );
-        console.log(activity);
 
         if (!activity) {
             return res.status(409).json({ error: "Ocurrio un error al eliminar una actividad" });
