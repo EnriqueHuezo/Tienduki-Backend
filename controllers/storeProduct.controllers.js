@@ -50,7 +50,8 @@ controller.findById = async (req, res) => {
         const storeProduct = await 
             StoreProduct
                 .findById( identifier )
-                .populate("image_product");
+                .populate("image_product")
+                .populate({path: "_id_product_collection", select: "-product_collections"});
 
         if (!storeProduct) {
             return res.status(404).json({error: "Producto de tienda no encontrado"});
