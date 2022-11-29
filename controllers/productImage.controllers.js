@@ -9,7 +9,7 @@ controller.create = async(req, res) => {
 
     try {
         const {
-            imageUrl, id_store
+            imageUrl, id_store, id_product
         } = req.body;
 
         const productImage = new ProductImage({
@@ -19,7 +19,7 @@ controller.create = async(req, res) => {
 
         const newProductImage = await productImage.save();
 
-        let imageProduct = await StoreProductModel.findOne({}).where({_id_store: id_store});
+        let imageProduct = await StoreProductModel.findOne({}).where({_id: id_product});
         imageProduct.image_product = imageProduct.image_product.concat(newProductImage._id);
         await imageProduct.save();
 

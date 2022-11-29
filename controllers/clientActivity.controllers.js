@@ -97,7 +97,7 @@ controller.getStoreAct = async (req, res) => {
         const { identifier } = req.params;
         
         const clientActivity = await ClientActivity.aggregate(
-            [                              
+            [
                 {
                     "$match": {
                         "$and": [
